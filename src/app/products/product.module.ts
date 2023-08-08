@@ -12,11 +12,18 @@ import { ProductListEditComponent } from './product-list-edit/product-list-edit.
 import { productListNoPatternComponent } from './product-list-no-pattern/product-list-no-pattern.component';
 import { ProductList1Component } from './list-1/product-list-1.component';
 import { ProductList2Component } from './list-2/product-list-2.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductEffects } from './product-rxjs/store/product.effects';
+import { productsReducer } from './product-rxjs/store/product.reducers';
+import { ProductRxjsComponent } from './product-rxjs/product-rxjs.component';
 
 @NgModule({
   imports: [
     SharedModule,
     ReactiveFormsModule,
+    StoreModule.forFeature('module_products',productsReducer),
+    EffectsModule.forFeature([ProductEffects]),
     RouterModule.forChild([
       {
         path: '',
@@ -41,6 +48,10 @@ import { ProductList2Component } from './list-2/product-list-2.component';
       {
         path: 'edit',
         component: ProductListEditComponent
+      },
+      {
+        path: 'ngrx',
+        component: ProductRxjsComponent
       }
     ])
   ],
@@ -53,6 +64,7 @@ import { ProductList2Component } from './list-2/product-list-2.component';
     productListNoPatternComponent,
     ProductList1Component,
     ProductList2Component,
+    ProductRxjsComponent,
   ]
 })
 export class ProductModule { }
